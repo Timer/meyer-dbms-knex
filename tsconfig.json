@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es2015",
+    "module": "es2015",
+    "lib": ["es2015"],
+    "strict": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "declarationDir": "dist/types",
+    "noEmit": false,
+    "emitBOM": false,
+    "outDir": "dist/lib"
+  },
+  "include": ["src"]
+}
