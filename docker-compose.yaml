@@ -1,0 +1,10 @@
+version: '3.2'
+services:
+  db:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: 'sa'
+      POSTGRES_PASSWORD: 'Meyer#123'
+      POSTGRES_DB: 'bootstrap'
+    ports:
+      - 26043:5432
