@@ -27,7 +27,6 @@
     "knex": "^0.21.1"
   },
   "peerDependencies": {
-    "knex": "^0.21.1",
     "meyer": "^1.1.1"
   },
   "husky": {
