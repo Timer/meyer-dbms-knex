@@ -51,7 +51,7 @@
     "pg": "^8.2.1",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
-    "semantic-release": "^17.0.8",
+    "semantic-release": "^19.0.3",
     "tsdx": "^0.13.2",
     "tslib": "^2.0.0",
     "typescript": "^3.9.3"
