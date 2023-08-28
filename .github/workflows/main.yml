@@ -5,43 +5,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Begin CI...
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Use Node 12
-        uses: actions/setup-node@v1
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 12.x
+          node-version: 18
 
-      - name: Use cached node_modules
-        uses: actions/cache@v1
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
         with:
-          path: node_modules
-          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            nodeModules-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          CI: true
-
-      - name: Lint
-        run: yarn lint
-        env:
-          CI: true
+        run: pnpm install
 
       - name: Test
         run: |
           docker-compose up -d
           sleep 3
-          yarn test --ci --coverage --maxWorkers=2
+          pnpm test -- --coverage
           docker-compose down --volumes --remove-orphans
         env:
           CI: true
 
       - name: Build
-        run: yarn build
+        run: pnpm build
         env:
           CI: true
 
@@ -50,4 +53,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: pnpm dlx semantic-release

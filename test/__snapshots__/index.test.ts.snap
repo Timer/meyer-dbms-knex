@@ -1,4 +1,107 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Knex Provider > it fails migrations v3 in prod 1`] = `[Error: ... migration 2 has a hash mismatch, aborting ...]`;
+
+exports[`Knex Provider > it fails migrations v3 in prod 2`] = `
+[
+  {
+    "id": 1,
+  },
+  {
+    "id": 2,
+  },
+  {
+    "id": 3,
+  },
+]
+`;
+
+exports[`Knex Provider > it fails migrations v3 in prod 3`] = `
+[
+  {
+    "id": 4,
+  },
+  {
+    "id": 5,
+  },
+  {
+    "id": 6,
+  },
+]
+`;
+
+exports[`Knex Provider > it runs migrations v1 1`] = `
+[
+  {
+    "id": 1,
+  },
+  {
+    "id": 2,
+  },
+  {
+    "id": 3,
+  },
+]
+`;
+
+exports[`Knex Provider > it runs migrations v2 1`] = `
+[
+  {
+    "id": 1,
+  },
+  {
+    "id": 2,
+  },
+  {
+    "id": 3,
+  },
+]
+`;
+
+exports[`Knex Provider > it runs migrations v2 2`] = `
+[
+  {
+    "id": 4,
+  },
+  {
+    "id": 5,
+  },
+  {
+    "id": 6,
+  },
+]
+`;
+
+exports[`Knex Provider > it runs migrations v3 in dev 1`] = `
+[
+  {
+    "id": 1,
+  },
+  {
+    "id": 2,
+  },
+  {
+    "id": 3,
+  },
+]
+`;
+
+exports[`Knex Provider > it runs migrations v3 in dev 2`] = `
+[
+  {
+    "id": 7,
+  },
+  {
+    "id": 8,
+  },
+  {
+    "id": 9,
+  },
+  {
+    "id": 10,
+  },
+]
+`;
 
 exports[`Knex Provider it fails migrations v3 in prod 1`] = `[Error: ... migration 2 has a hash mismatch, aborting ...]`;
 

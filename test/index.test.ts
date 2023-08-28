@@ -1,6 +1,7 @@
 import Knex, { PgConnectionConfig } from 'knex';
 import Meyer from 'meyer';
 import path from 'path';
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 import KnexDbms from '../src';
 
 const config: PgConnectionConfig = {
@@ -86,7 +87,7 @@ describe('Knex Provider', () => {
     expect(await testingKnex.table(`abc`)).toMatchSnapshot();
     expect(await testingKnex.table(`jow`)).toMatchSnapshot();
     expect(testingKnex.table(`def`)).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"select * from \\"def\\" - relation \\"def\\" does not exist"`
+      `"select * from \\"def\\" - relation \\"def\\" does not exist"`,
     );
   });
 });
