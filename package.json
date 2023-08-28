@@ -5,6 +5,12 @@
   "author": "Joe Haddad <timer150@gmail.com>",
   "license": "Apache-2.0",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "module": "dist/meyer-dbms-knex.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
