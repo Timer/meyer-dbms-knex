@@ -1,26 +1,27 @@
-import Knex, { PgConnectionConfig } from 'knex';
+import { knex, Knex as K } from 'knex';
 import Meyer from 'meyer';
 import path from 'path';
 import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 import KnexDbms from '../src';
 
-const config: PgConnectionConfig = {
+const config: K.PgConnectionConfig = Object.freeze({
   host: 'localhost',
   port: 26043,
   user: 'sa',
   password: 'Meyer#123',
   database: 'testing',
-};
-const dbms = new KnexDbms('pg', config);
+  ssl: false,
+});
+const dbms = new KnexDbms('pg', { ...config });
 
-let testingKnex: Knex;
+let testingKnex: K;
 beforeAll(async () => {
-  const boostrapConfig: PgConnectionConfig = {
+  const boostrapConfig: K.PgConnectionConfig = {
     ...config,
     database: 'bootstrap',
   };
 
-  const setupKnex = Knex({
+  const setupKnex = knex({
     client: 'pg',
     connection: boostrapConfig,
     pool: { min: 0, max: 1, idleTimeoutMillis: 100, reapIntervalMillis: 100 },
@@ -31,9 +32,9 @@ beforeAll(async () => {
 
   await setupKnex.destroy();
 
-  testingKnex = Knex({
+  testingKnex = knex({
     client: 'pg',
-    connection: config,
+    connection: { ...config },
     pool: { min: 0, max: 1, idleTimeoutMillis: 100, reapIntervalMillis: 100 },
   });
 });

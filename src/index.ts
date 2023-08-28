@@ -1,19 +1,12 @@
-import Knex, {
-  Client,
-  ConnectionConfigProvider,
-  StaticConnectionConfig,
-} from 'knex';
+import { knex, Knex as K } from 'knex';
 import { BaseDbms, Migration } from 'meyer';
 
 export default class KnexDbms extends BaseDbms {
-  private knex: Knex;
+  private knex: K;
 
-  constructor(
-    client: string | typeof Client,
-    config: string | StaticConnectionConfig | ConnectionConfigProvider
-  ) {
+  constructor(client: K.Config['client'], config: K.Config['connection']) {
     super();
-    this.knex = Knex({
+    this.knex = knex({
       client: client,
       connection: config,
       pool: { min: 0, max: 1, idleTimeoutMillis: 100, reapIntervalMillis: 100 },
@@ -31,7 +24,7 @@ export default class KnexDbms extends BaseDbms {
             table.text('down').notNullable();
             table.text('checksum').notNullable();
           })
-          .then(resolve, reject)
+          .then(resolve, reject),
       );
     }
 
@@ -46,7 +39,7 @@ export default class KnexDbms extends BaseDbms {
     migration: Migration,
     opts: {
       checkEffects?: boolean;
-    }
+    },
   ): Promise<void> => {
     await this.knex.transaction(async (trx) => {
       await trx.raw(migration.up);
@@ -60,7 +53,7 @@ export default class KnexDbms extends BaseDbms {
 
   revertMigration = async (
     tableName: string,
-    migration: Migration
+    migration: Migration,
   ): Promise<void> => {
     await this.knex.transaction(async (trx) => {
       await trx.raw(migration.down);
